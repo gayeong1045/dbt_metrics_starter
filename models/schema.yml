@@ -4,7 +4,7 @@ version: 2
 models:
     - name: stg_ga
       description: "dbt 첫 학습"
-      
+
 sources:
   - name: sql_study
     database: sqlstudy-340606
@@ -13,3 +13,31 @@ sources:
       - name: ga
       - name: accounts
       - name: login
+
+  - name: dbt_glee
+    database: sqlstudy-340606
+    schema: dbt_glee
+    tables: 
+      - name: payment
+
+metrics:
+  - name: average_user_cnt
+    label: Average User Count
+    model: ref('stg_ga')
+
+    type: count
+    sql: user_pseudo_id
+
+    timestamp: event_time
+    time_grains: [day, week, month]
+
+  - name: average_pay_cnt
+    label: Average Payment Count
+    model: ref('stg_payment')
+
+    type: count
+    sql: user_id
+
+    timestamp: event_at
+    time_grains: [day, week, month]
+
