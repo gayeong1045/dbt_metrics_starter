@@ -1,0 +1,73 @@
+
+version: 2
+
+models:
+    - name: stg_ga
+      description: "dbt 첫 학습"
+
+sources:
+  - name: sql_study
+    database: sqlstudy-340606
+    schema: sql_study
+    tables: 
+      - name: ga
+      - name: accounts
+      - name: login
+
+  - name: dbt_glee
+    database: sqlstudy-340606
+    schema: dbt_glee
+    tables: 
+      - name: payment
+
+metrics:
+  - name: average_user_cnt
+    label: Average User Count
+    model: ref('stg_ga')
+    type: count
+    sql: user_pseudo_id
+    timestamp: event_time
+    time_grains: [day, week, month]
+
+  - name: average_pay_cnt
+    label: Average Payment Count
+    model: ref('stg_payment')
+    type: count_distinct
+    sql: user_id
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
+    filters:
+      - field: status
+        operator: '='
+        value: "'paid'"
+
+  - name: average_pay_amt
+    label: Average Payment Amount
+    model: ref('stg_payment')
+    type: sum
+    sql: amount
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
+    filters:
+      - field: status
+        operator: '='
+        value: "'paid'"
+
+  - name: average_payment_per_customer
+    label: Average Payment Per Customer
+    type: expression
+    sql: "{{metric('average_pay_amt')}} / {{metric('average_pay_cnt')}}"
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name

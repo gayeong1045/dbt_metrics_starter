@@ -1,0 +1,1 @@
+SELECT * FROM {{source('sql_study','ga') }}
