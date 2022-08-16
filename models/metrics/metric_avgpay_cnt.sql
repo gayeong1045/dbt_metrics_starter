@@ -1,6 +1,6 @@
 select * 
-from {{ metrics.metric(
-    metric_name='average_pay_cnt',
+from {{ metrics.calculate(
+    metric('average_pay_cnt'),
     grain='week',
     dimensions=['custom_data'],
 ) }}
