@@ -97,6 +97,8 @@ order by date_week desc
 *주의사항1 : dbt_metric 최신 버전에서는 metrics.calculate 명령어 사용*<br/>
 *주의사항2 : `schema.yml` 파일에서 lable은 입력 필수값임* &nbsp;
 
+#결과
+![dbt-dag (4)](https://user-images.githubusercontent.com/72444914/184828478-4778b577-268f-48f8-a8d1-70e5e2c46c5b.png)
 
 
 
