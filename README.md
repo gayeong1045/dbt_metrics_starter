@@ -11,8 +11,8 @@ packages:
   - package: dbt-labs/metrics
     version: 0.3.1
 ```
-**주의사항1 : 위의 0.3.1 버전을 설치하기 위해서는 dbt 최신버전(1.3.0)을 사용해야 함**
-**(Environments 및 `dbt_project.yml` 파일에서 버전을 1.3.0으로 바꾼 후 `dbt compile` 명령어 실행)**
+*주의사항1 : 위의 0.3.1 버전을 설치하기 위해서는 dbt 최신버전(1.3.0)을 사용해야 함*&nbsp;
+*(Environments 및 `dbt_project.yml` 파일에서 버전을 1.3.0으로 바꾼 후 `dbt compile` 명령어 실행)*
 
 # Metric 사용
 솔루션 구매 관련 데이터를 사용하여 아래 데이터를 Metric으로 구성함
@@ -47,8 +47,8 @@ from {{ metrics.calculate(
 order by date_week desc
 ```
 
-** 주의사항1 : dbt_metric 최신 버전에서는 metrics.calculate 명령어 사용
-** 주의사항2 : `schema.yml` 파일에서 lable은 입력 필수값임
+*주의사항1 : dbt_metric 최신 버전에서는 metrics.calculate 명령어 사용* &nbsp;
+*주의사항2 : `schema.yml` 파일에서 lable은 입력 필수값임* &nbsp;
 
 
 
