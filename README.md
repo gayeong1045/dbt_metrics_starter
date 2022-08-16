@@ -19,14 +19,6 @@ packages:
 * 스키마 정의
 ```yaml
 metrics:
-  - name: average_user_cnt
-    label: Average User Count
-    model: ref('stg_ga')
-    type: count
-    sql: user_pseudo_id
-    timestamp: event_time
-    time_grains: [day, week, month]
-
   - name: average_pay_cnt
     label: Average Payment Count
     model: ref('stg_payment')
