@@ -61,6 +61,13 @@ metrics:
         operator: '='
         value: "'paid'"
 
-
-
-
+  - name: average_payment_per_customer
+    label: Average Payment Per Customer
+    type: expression
+    sql: "{{metric('average_pay_amt')}} / {{metric('average_pay_cnt')}}"
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
