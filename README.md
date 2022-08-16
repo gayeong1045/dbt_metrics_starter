@@ -11,7 +11,7 @@ packages:
   - package: dbt-labs/metrics
     version: 0.3.1
 ```
-*주의사항1 : 위의 0.3.1 버전을 설치하기 위해서는 dbt 최신버전(1.3.0)을 사용해야 함<br/>
+*주의사항1 : 위의 0.3.1 버전을 설치하기 위해서는 dbt 최신버전(1.3.0)을 사용해야 함*<br/>
 *(Environments 및 `dbt_project.yml` 파일에서 버전을 1.3.0으로 바꾼 후 `dbt compile` 명령어 실행)*
 
 # Metric 사용
