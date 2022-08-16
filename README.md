@@ -16,6 +16,61 @@ packages:
 
 # Metric 사용
 솔루션 구매 관련 데이터를 사용하여 아래 데이터를 Metric으로 구성함
+* 스키마 정의
+```yaml
+metrics:
+  - name: average_user_cnt
+    label: Average User Count
+    model: ref('stg_ga')
+    type: count
+    sql: user_pseudo_id
+    timestamp: event_time
+    time_grains: [day, week, month]
+
+  - name: average_pay_cnt
+    label: Average Payment Count
+    model: ref('stg_payment')
+    type: count_distinct
+    sql: user_id
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
+    filters:
+      - field: status
+        operator: '='
+        value: "'paid'"
+
+  - name: average_pay_amt
+    label: Average Payment Amount
+    model: ref('stg_payment')
+    type: sum
+    sql: amount
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
+    filters:
+      - field: status
+        operator: '='
+        value: "'paid'"
+
+  - name: average_payment_per_customer
+    label: Average Payment Per Customer
+    type: expression
+    sql: "{{metric('average_pay_amt')}} / {{metric('average_pay_cnt')}}"
+    timestamp: event_at
+    time_grains: [day, week, month]
+    dimensions:
+      - buyer_name
+      - custom_data
+      - name
+```
+
 * 주별 구독종류에 따른 평균 구매횟수
 ```sql
 select * 
